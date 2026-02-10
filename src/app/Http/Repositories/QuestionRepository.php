@@ -20,25 +20,6 @@ class QuestionRepository
         return $question;
     }
 
-    public function Reigstre_Favoris($question_id, $user_id)
-    {
-        $favoris = Favoris::create([
-            'user_id' => $user_id,
-            'question_id' => $question_id,
-        ]);
-
-        $favoris->save();
-        return $favoris;
-
-    }
-    public function delete($favoris_id)
-    {
-        $favoris = Favoris::find($favoris_id);
-        if($favoris) {
-            $favoris->delete();
-        }
-    }
-
     public function deletequestion($question_id)
     {
         $question = Question::find($question_id);
