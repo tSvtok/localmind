@@ -87,8 +87,4 @@ class QuestionController extends Controller
 
     }
 
-
-
-
-
 }
