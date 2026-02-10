@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\QuestionService;
-use App\Models\Favoris;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class QuestionController extends Controller
 {
     private $questionService;
@@ -14,67 +14,50 @@ class QuestionController extends Controller
     public function __construct(QuestionService $questionService)
     {
         $this->questionService = $questionService;
-        $this->middleware('auth');
+        $this->middleware('auth'); 
     }
 
-    public function Question()
+    // Create a question
+    public function Question(Request $request)
     {
-        $titre = request('titre');
-        $description = request('description');
-        $user_id = Auth::user()->id;
-        $city = request('city');
+        $titre = $request->input('titre');
+        $description = $request->input('description');
+        $city = $request->input('city');
+        $user_id = Auth::id();
 
-        if($this->questionService->createQuestion($titre, $description, $user_id,$city)) {
+        if ($this->questionService->createQuestion($titre, $description, $user_id, $city)) {
             return redirect()->route('affichage');
         }
     }
 
-    public function Favoris()
+    // Delete a question
+    public function deletequestion(Request $request)
     {
-        $user_id = Auth::user()->id;
-        $question_id = request('question_id');
-        $reponse_id = request('reponse_id');
+        $question_id = $request->input('questionid');
 
-        if($this->questionService->ReigstreFavoris($question_id, $user_id)) {
-            return redirect()->route('affichage');
-        }
-
-    }
-
-    public function delete()
-    {
-        $favoris_id = request('favid');
-
-        if($this->questionService->delete($favoris_id)) {
+        if ($this->questionService->deletequestion($question_id)) {
             return redirect()->route('affichage');
         }
     }
 
-    public function deletequestion()
+    // Update a question
+    public function update(Request $request)
     {
-        $question_id = request('questionid');
-        if($this->questionService->deletequestion($question_id)) {
+        $titre = $request->input('titre');
+        $description = $request->input('description');
+        $city = $request->input('city');
+        $question_id = $request->input('question_id');
+
+        if ($this->questionService->modifier($titre, $description, $city, $question_id)) {
             return redirect()->route('affichage');
         }
     }
 
-    public function update()
+    // Display questions
+    public function index(Request $request)
     {
-        $titre = request('titre');
-        $description = request('description');
-        $city = request('city');
-        $question_id = request('question_id');
+        $search = $request->input('search');
 
-        if($this->questionService->modifier($titre, $description, $city, $question_id)) {
-            return redirect()->route('affichage');
-        }
-    }
-
-    public function index()
-    {
-        $user = Auth::user();
-        $search = request('search');
-        $favoris = Favoris::with('question.reponses')->where('user_id', $user->id)->get();
         if ($search) {
             $questions = Question::where('titre', 'like', "%{$search}%")
                 ->orWhere('description', 'like', "%{$search}%")
@@ -83,8 +66,6 @@ class QuestionController extends Controller
             $questions = Question::all();
         }
 
-        return view('affichage', compact('questions','favoris'));
-
+        return view('affichage', compact('questions'));
     }
-
 }
