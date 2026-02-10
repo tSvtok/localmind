@@ -11,10 +11,11 @@ class AuthMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            return $next($request);
+        if (!$request->user()) { // Vérifie si l'utilisateur n'est pas authentifié
+            return redirect('/login'); // Redirige vers la page de connexion si l'utilisateur n'est pas authentifié²
+
         }
 
-        return redirect('/home');
+       return $next($request);
     }
 }

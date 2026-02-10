@@ -31,7 +31,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/Favoris', [QuestionController::class, 'Favoris'])->name('favoris.store');
     Route::post('/question/delete', [QuestionController::class, 'deletequestion'])->name('question.delete');
     Route::post('/question/update', [QuestionController::class, 'update'])->name('question.update');
-
-
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

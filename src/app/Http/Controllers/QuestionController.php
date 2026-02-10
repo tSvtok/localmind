@@ -14,12 +14,13 @@ class QuestionController extends Controller
     public function __construct(QuestionService $questionService)
     {
         $this->questionService = $questionService;
-        $this->middleware('auth'); 
+       
     }
 
     // Create a question
     public function Question(Request $request)
     {
+
         $titre = $request->input('titre');
         $description = $request->input('description');
         $city = $request->input('city');
