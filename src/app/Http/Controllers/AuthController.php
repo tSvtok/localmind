@@ -19,7 +19,7 @@ class AuthController extends Controller
         return view('home');
     }
 
-    public  function login(){
+    public function login(){
 
         $email = request('email');
         $password = request('password');
@@ -29,12 +29,14 @@ class AuthController extends Controller
         if($user) {
 
             Auth::login($user);
+
+            request()->session()->regenerate();
+
             if($user->role == 'admin'){
                 return redirect()->route('admindash');
-            }else
-            {
-                return redirect()->route('affichage');
             }
+
+            return redirect()->route('affichage');
         }
     }
 

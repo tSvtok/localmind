@@ -6,7 +6,7 @@
     {
         public function index()
         {
-            return view('home', [
+            return view('Affichage', [
                 'title' => "Home",
             ]);
         }

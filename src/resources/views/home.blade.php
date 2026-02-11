@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Bienvenue sur QConnect' }}</title>
+    <title>{{ $title ?? 'Bienvenue sur LOCALmind' }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -112,7 +112,7 @@
 
         .input-group { margin-bottom: 20px; }
         .label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
-        
+
         .input-field {
             width: 100%;
             padding: 14px 16px;
@@ -162,7 +162,7 @@
             text-decoration: none;
             cursor: pointer;
         }
-        
+
         .switch-link:hover { text-decoration: underline; }
 
         .hidden { display: none; }
@@ -187,7 +187,7 @@
             </div>
             <h1 class="visual-title">Connectez-vous à votre quartier.</h1>
             <p class="visual-text">
-                Rejoignez QConnect pour échanger avec vos voisins, poser des questions et découvrir ce qui se passe autour de vous. Une communauté bienveillante vous attend.
+                Rejoignez LOCALmind pour échanger avec vos voisins, poser des questions et découvrir ce qui se passe autour de vous. Une communauté bienveillante vous attend.
             </p>
         </div>
     </div>
@@ -195,7 +195,7 @@
     <!-- Form Side -->
     <div class="form-side">
         <div class="form-wrapper">
-            
+
             <!-- Login Form -->
             <div id="login-form" class="fade-in">
                 <div class="form-header">

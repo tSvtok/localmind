@@ -6,16 +6,19 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReponseController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/login', [AuthController::class, 'Show'])->name('login');
+
+Route::get('/login', [AuthController::class, 'Show'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 
-Route::get('/register', [AuthController::class, 'Show'])->name('register');
+Route::get('/register', [AuthController::class, 'Show'])->name('register')->middleware('guest');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
 Route::get('/', function () {
-    return redirect()->route('home');
+    return redirect()->route('affichage');
 });
+
 
 // Routes protégées par auth
 Route::middleware('auth')->group(function () {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QConnect - Feed</title>
+    <title>LOCALmind - Feed</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -13,19 +13,19 @@
             --primary-dark: #4338ca;
             --secondary: #ec4899;
             --secondary-light: #fce7f3;
-            
+
             --bg-body: #f8fafc;
             --bg-card: #ffffff;
             --bg-sidebar: #ffffff;
-            
+
             --text-main: #0f172a;
             --text-muted: #64748b;
             --text-light: #94a3b8;
-            
+
             --border: #e2e8f0;
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            
+
             --sidebar-width: 280px;
         }
 
@@ -437,14 +437,14 @@
         .form-control:focus { outline: none; border-color: var(--primary); background: white; }
 
         .modal-actions { display: flex; gap: 12px; margin-top: 32px; }
-        
+
         .btn-cancel {
             flex: 1; padding: 12px; border-radius: 14px;
             border: 1px solid var(--border); background: white;
             font-weight: 700; cursor: pointer; color: var(--text-muted);
         }
         .btn-cancel:hover { background: var(--bg-body); }
-        
+
         #favorisSection { display: none; }
 
         @media (max-width: 768px) {
@@ -464,7 +464,7 @@
             <div class="brand-icon">
                 <i class="fa-solid fa-street-view"></i>
             </div>
-            <span class="brand-text">QConnect</span>
+            <span class="brand-text">LOCALmind</span>
         </a>
 
         <nav style="flex: 1">
@@ -561,7 +561,7 @@
                             <i class="fa-regular fa-comment-dots"></i>
                             {{ $question->reponses->count() }} Réponses
                         </button>
-                        
+
                         <form method="POST" action="{{ route('favoris.store') }}">
                             @csrf
                             <input type="hidden" name="question_id" value="{{ $question->id }}">
