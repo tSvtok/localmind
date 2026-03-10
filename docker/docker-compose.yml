@@ -1,25 +1,25 @@
 services:
+  # Laravel API Backend
   app:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-      args:     
+      args:
         UID: 1000
         GID: 1000
-    container_name: laravel_app
+    container_name: localmind_api
     volumes:
       - ../src:/var/www:z
     working_dir: /var/www
-    ports:
-      - "8988:80" 
     depends_on:
       - db
     networks:
-      - laravel
+      - localmind
 
+  # Nginx reverse proxy for API
   web:
     image: nginx:alpine
-    container_name: laravel_nginx
+    container_name: localmind_nginx
     ports:
       - "8000:80"
     volumes:
@@ -28,37 +28,57 @@ services:
     depends_on:
       - app
     networks:
-      - laravel
+      - localmind
 
+  # PostgreSQL Database
   db:
     image: postgres:17
-    container_name: laravel_db
+    container_name: localmind_db
     environment:
-      POSTGRES_DB: mydb
-      POSTGRES_USER: mook
-      POSTGRES_PASSWORD: mook
+      POSTGRES_DB: localmind
+      POSTGRES_USER: localmind
+      POSTGRES_PASSWORD: localmind
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
-      - laravel
+      - localmind
 
+  # Vue.js Frontend
+  frontend:
+    build:
+      context: ../../yocode
+      dockerfile: Dockerfile
+    container_name: localmind_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../../yocode:/app:z
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    depends_on:
+      - web
+    networks:
+      - localmind
+
+  # pgAdmin (optional, for database management)
   pgadmin:
     image: dpage/pgadmin4
-    container_name: laravel_pgadmin
+    container_name: localmind_pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: localmind@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: mook
+      PGADMIN_DEFAULT_PASSWORD: localmind
     ports:
       - "5050:80"
     depends_on:
       - db
     networks:
-      - laravel
+      - localmind
 
 networks:
-  laravel: 
+  localmind:
 
 volumes:
   pgdata:
