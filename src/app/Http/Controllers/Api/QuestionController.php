@@ -19,8 +19,8 @@ class QuestionController extends Controller
 
         if ($search) {
             $query->where('titre', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('city', 'like', "%{$search}%");
+                ->orWhere('description', 'like', "%{$search}%")
+                ->orWhere('city', 'like', "%{$search}%");
         }
 
         $questions = $query->latest()->get();
